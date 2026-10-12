@@ -2,9 +2,9 @@
 
 const express = require('express');
 const crypto = require('crypto');
-const { authMiddleware } = require('../../lib/middleware');
-const { get, all, run, nowIso } = require('../../lib/db');
-const { generatePost } = require('../../lib/ai');
+const { authMiddleware } = require('../lib/middleware');
+const { get, all, run, nowIso } = require('../lib/db');
+const { generatePost } = require('../lib/ai');
 
 const router = express.Router();
 

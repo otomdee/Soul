@@ -2,9 +2,9 @@
 
 const express = require('express');
 const { ethers } = require('ethers');
-const { generateNonce, buildSignMessage, verifySignature, createToken } = require('../../lib/auth');
-const { authMiddleware } = require('../../lib/middleware');
-const { getOwnedTokenIds } = require('../../lib/blockchain');
+const { generateNonce, buildSignMessage, verifySignature, createToken } = require('../lib/auth');
+const { authMiddleware } = require('../lib/middleware');
+const { getOwnedTokenIds } = require('../lib/blockchain');
 
 const router = express.Router();
 

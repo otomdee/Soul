@@ -2,10 +2,10 @@
 
 const express = require('express');
 const crypto = require('crypto');
-const { authMiddleware } = require('../../lib/middleware');
-const { get, run, all, nowIso } = require('../../lib/db');
-const { verifyOwnership, getTokenMetadata, getTokenHistory } = require('../../lib/blockchain');
-const { generatePersonality } = require('../../lib/ai');
+const { authMiddleware } = require('../lib/middleware');
+const { get, run, all, nowIso } = require('../lib/db');
+const { verifyOwnership, getTokenMetadata, getTokenHistory } = require('../lib/blockchain');
+const { generatePersonality } = require('../lib/ai');
 
 const router = express.Router();
 

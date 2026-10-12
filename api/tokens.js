@@ -2,8 +2,8 @@
 
 const express = require('express');
 const crypto = require('crypto');
-const { authMiddleware } = require('../../lib/middleware');
-const { get, run, nowIso } = require('../../lib/db');
+const { authMiddleware } = require('../lib/middleware');
+const { get, run, nowIso } = require('../lib/db');
 
 const router = express.Router();
 
