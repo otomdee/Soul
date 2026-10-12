@@ -10,6 +10,10 @@
     "seed": "node scripts/seed.js",
     "test": "jest --runInBand"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 20000
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
