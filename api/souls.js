@@ -3,7 +3,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const { authMiddleware } = require('../lib/middleware');
-const { get, run, all, nowIso } = require('../lib/db');
+const { get, run, nowIso } = require('../lib/db');
 const { verifyOwnership, getTokenMetadata, getTokenHistory } = require('../lib/blockchain');
 const { generatePersonality } = require('../lib/ai');
 
@@ -167,7 +167,6 @@ router.get('/:tokenId/balance', authMiddleware, async (req, res) => {
     return res.status(403).json({ error: 'Only the owner can view the balance' });
   }
   res.json({ balance: soul.soul_balance, tokenId: tid });
-  void all;
 });
 
 module.exports = router;
