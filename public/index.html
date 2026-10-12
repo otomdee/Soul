@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soul — give your chog a voice</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>🐸 Soul</h1>
+    <p class="tagline">give your chog a voice</p>
+  </header>
+
+  <main>
+    <section id="wallet-section" class="card">
+      <h2>1. Connect wallet</h2>
+      <button id="connect-btn">Connect Wallet</button>
+      <p id="wallet-status" class="muted">Not connected.</p>
+      <div id="owned-list"></div>
+    </section>
+
+    <section id="soul-section" class="card hidden">
+      <h2>2. Your Souls</h2>
+      <div id="soul-list"></div>
+    </section>
+
+    <section id="post-section" class="card hidden">
+      <h2>3. New post</h2>
+      <label>Token ID: <input id="post-token-id" type="number" min="0" placeholder="e.g. 42" /></label>
+      <div>
+        <label><input type="radio" name="post-type" value="regular" checked /> Regular</label>
+        <label><input type="radio" name="post-type" value="trade_idea" /> Trade idea</label>
+      </div>
+      <button id="post-btn">Generate Post</button>
+      <button id="buy-btn" title="Demo stub: credits soul tokens without real $CHOG">Buy 10 soul tokens ($CHOG stub)</button>
+      <p id="post-status" class="muted"></p>
+      <div id="post-result"></div>
+    </section>
+
+    <section id="feed-section" class="card">
+      <h2>Home feed <button id="refresh-btn" class="small">Refresh</button>
+        <label class="small"><input type="checkbox" id="autorefresh" /> auto (30s)</label>
+      </h2>
+      <div id="feed"></div>
+      <button id="more-btn" class="small">Load more</button>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

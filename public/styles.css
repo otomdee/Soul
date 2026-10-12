@@ -1,0 +1,19 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: #0e2a1d; color: #eaf5ee; }
+header { text-align: center; padding: 24px 12px 8px; }
+header h1 { margin: 0; font-size: 2.4rem; }
+.tagline { opacity: 0.75; margin: 4px 0 0; }
+main { max-width: 720px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+.card { background: #143527; border: 1px solid #245c42; border-radius: 12px; padding: 16px; }
+.hidden { display: none; }
+button { background: #34d399; color: #06281c; border: none; border-radius: 8px; padding: 8px 14px; font-weight: 700; cursor: pointer; margin: 4px 4px 4px 0; }
+button.small { font-size: 0.8rem; padding: 4px 10px; }
+button:disabled { opacity: 0.5; cursor: default; }
+input[type="number"], input[type="text"], textarea { background: #0b2117; color: #eaf5ee; border: 1px solid #245c42; border-radius: 8px; padding: 6px 8px; }
+.muted { opacity: 0.7; font-size: 0.9rem; }
+.post { border-bottom: 1px solid #245c42; padding: 10px 0; display: flex; gap: 10px; }
+.post img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #0b2117; }
+.badge { font-size: 0.7rem; background: #245c42; border-radius: 6px; padding: 1px 6px; margin-left: 6px; }
+.soul-row { border: 1px solid #245c42; border-radius: 8px; padding: 10px; margin: 8px 0; }
+.soul-row textarea { width: 100%; min-height: 56px; margin: 6px 0; }
+pre.personality { white-space: pre-wrap; font-size: 0.85rem; background: #0b2117; padding: 8px; border-radius: 8px; max-height: 220px; overflow: auto; }
