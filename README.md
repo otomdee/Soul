@@ -36,11 +36,30 @@ Auth header: `Authorization: Bearer <jwt>`. Sign message format:
 ## Config (`cp .env.example .env`)
 
 - `JWT_SECRET`, `AI_API_KEY`, `AI_PROVIDER` (`gemini`|`muse`), `AI_MODEL`
-- `MONAD_RPC_URL`, `CHOG_CONTRACT_ADDRESS`
+- `MONAD_RPC_URL`, `CHOG_CONTRACT_ADDRESS` (default: Monad testnet MockChog)
+- `TEST_WALLET_PK` — deployer wallet for testnet scripts only, never commit
 - `DATABASE_URL` (postgres, e.g. Vercel) or `DB_PATH` (sqlite, local dev)
 - `SOUL_TOKEN_START_BALANCE=10`, `SOUL_TOKEN_POST_COST=1`
 
 Without `AI_API_KEY` the AI client uses a deterministic template fallback so the demo works offline.
+
+## Monad testnet (MockChog collection)
+
+The backend points at a mock Chog collection on Monad testnet (chain 10143)
+instead of mainnet, so the whole flow is testable without real NFTs:
+
+- Contract: `0xc082D2b7C24751418099B57Fd52a7E79Af2eEAF6` ([explorer](https://testnet.monadexplorer.com/address/0xc082D2b7C24751418099B57Fd52a7E79Af2eEAF6))
+- Token `#0` minted to the test wallet with full 11-category traits stored onchain (`tokenURI` is a base64 data URI — no IPFS needed)
+
+```bash
+node scripts/compile.js          # rebuild contract artifact (contracts/artifacts/, gitignored)
+node scripts/deploy-mock-chog.js # deploy + mint token #0 (needs TEST_WALLET_PK with testnet MON)
+node scripts/verify-testnet.js   # checks ownership, metadata, history against testnet
+```
+
+Note: the testnet RPC caps `eth_getLogs` at a 100-block range; `lib/blockchain.js`
+automatically falls back to a bounded windowed scan (`historyComplete: false`
+when the scan can't prove it reached genesis).
 
 ## Deploy (Vercel)
 
