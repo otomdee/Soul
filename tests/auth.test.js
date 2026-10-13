@@ -27,6 +27,21 @@ describe('auth routes', () => {
     expect(res.body.tokenIds).toEqual([7, 42]);
   });
 
+  test('POST /api/auth/verify accepts lowercase (non-checksummed) address casing', async () => {
+    const request = getRequest();
+    const wallet = ethers.Wallet.createRandom();
+    const nonceRes = await request.get('/api/auth/nonce');
+    const nonce = nonceRes.body.nonce;
+    const lower = wallet.address.toLowerCase();
+    const message = buildSignMessage(lower, nonce);
+    const signature = await wallet.signMessage(message);
+    blockchain.getOwnedTokenIds.mockResolvedValue([7]);
+
+    const res = await request.post('/api/auth/verify').send({ address: lower, signature, nonce });
+    expect(res.status).toBe(200);
+    expect(res.body.address).toBe(wallet.address);
+  });
+
   test('POST /api/auth/verify rejects bad signature', async () => {
     const request = getRequest();
     const wallet = ethers.Wallet.createRandom();

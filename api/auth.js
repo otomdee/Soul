@@ -45,8 +45,12 @@ router.post('/verify', async (req, res) => {
     if (!record) return res.status(400).json({ error: 'Invalid or expired nonce' });
     nonces.delete(nonce);
 
-    const message = buildSignMessage(checksum, nonce);
-    if (!verifySignature(message, signature, checksum)) {
+    // The frontend may sign with the address in any casing (some wallets return
+    // all-lowercase accounts). Accept the checksummed message or the as-sent one.
+    const candidates = [buildSignMessage(checksum, nonce)];
+    if (address !== checksum) candidates.push(buildSignMessage(address, nonce));
+    const ok = candidates.some((message) => verifySignature(message, signature, checksum));
+    if (!ok) {
       return res.status(401).json({ error: 'Signature verification failed' });
     }
 

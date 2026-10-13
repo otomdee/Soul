@@ -47,7 +47,9 @@ async function connectWallet() {
   }
   try {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const address = accounts[0];
+    // Normalize to EIP-55 checksum casing so the signed message always matches
+    // the message the backend rebuilds for verification.
+    const address = ethers.getAddress(accounts[0]);
     $('wallet-status').textContent = `Connected: ${address}. Requesting nonce…`;
     const { nonce } = await api.get('/api/auth/nonce');
     const provider = new ethers.BrowserProvider(window.ethereum);
