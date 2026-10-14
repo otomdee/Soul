@@ -18,7 +18,7 @@ function publicSoul(row) {
     tokenId: row.token_id,
     ownerAddress: row.owner_address,
     personality: row.personality,
-    userDirection: row.user_direction,
+    steer: row.steer,
     displayName: row.display_name,
     avatarUrl: row.avatar_url,
     soulBalance: row.soul_balance,
@@ -70,12 +70,10 @@ router.post('/', authMiddleware, async (req, res) => {
     // Fetch traits + history (best-effort; fall back to empty so activation never hard-fails)
     let traits = {};
     let image = '';
-    let name = `Chog #${tid}`;
     try {
       const meta = await getTokenMetadata(tid);
       traits = meta.traits || {};
       image = meta.image || '';
-      name = meta.name || name;
     } catch (err) {
       console.error('getTokenMetadata failed:', err.message);
     }
@@ -86,7 +84,7 @@ router.post('/', authMiddleware, async (req, res) => {
       console.error('getTokenHistory failed:', err.message);
     }
 
-    const { personality, bio } = await generatePersonality(traits, history);
+    const { personality } = await generatePersonality(traits, history);
 
     const now = nowIso();
     const soul = {
@@ -94,17 +92,17 @@ router.post('/', authMiddleware, async (req, res) => {
       token_id: tid,
       owner_address: req.user.address,
       personality,
-      user_direction: '',
-      display_name: bio ? bio.slice(0, 80) : name,
+      steer: '',
+      display_name: `Chog #${tid}`,
       avatar_url: image,
       soul_balance: START_BALANCE,
       created_at: now,
       updated_at: now,
     };
     await run(
-      `INSERT INTO souls (id, token_id, owner_address, personality, user_direction, display_name, avatar_url, soul_balance, created_at, updated_at)
+      `INSERT INTO souls (id, token_id, owner_address, personality, steer, display_name, avatar_url, soul_balance, created_at, updated_at)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-      [soul.id, soul.token_id, soul.owner_address, soul.personality, soul.user_direction, soul.display_name, soul.avatar_url, soul.soul_balance, soul.created_at, soul.updated_at]
+      [soul.id, soul.token_id, soul.owner_address, soul.personality, soul.steer, soul.display_name, soul.avatar_url, soul.soul_balance, soul.created_at, soul.updated_at]
     );
     await run(
       `INSERT INTO transactions (id, soul_id, amount, reason, created_at) VALUES ($1,$2,$3,$4,$5)`,
@@ -129,7 +127,7 @@ router.get('/:tokenId', async (req, res) => {
   res.json({ ...publicSoul(soul), postCount: Number(countRow?.count || 0) });
 });
 
-// PATCH /api/souls/:tokenId — owner only, updatable: user_direction (≤500), display_name
+// PATCH /api/souls/:tokenId — owner only, updatable: steer (≤280), display_name (≤120)
 router.patch('/:tokenId', authMiddleware, async (req, res) => {
   const tid = Number(req.params.tokenId);
   if (!Number.isInteger(tid)) return res.status(400).json({ error: 'Invalid tokenId' });
@@ -138,17 +136,17 @@ router.patch('/:tokenId', authMiddleware, async (req, res) => {
   if (soul.owner_address.toLowerCase() !== req.user.address.toLowerCase()) {
     return res.status(403).json({ error: 'Only the owner can update this Soul' });
   }
-  const { user_direction, display_name, userDirection, displayName } = req.body || {};
-  const direction = user_direction ?? userDirection ?? soul.user_direction;
+  const { steer, display_name, displayName } = req.body || {};
+  const newSteer = steer ?? soul.steer;
   const dname = display_name ?? displayName ?? soul.display_name;
-  if (typeof direction === 'string' && direction.length > 500) {
-    return res.status(400).json({ error: 'user_direction must be ≤500 chars' });
+  if (typeof newSteer === 'string' && newSteer.length > 280) {
+    return res.status(400).json({ error: 'steer must be ≤280 chars' });
   }
   if (typeof dname === 'string' && dname.length > 120) {
     return res.status(400).json({ error: 'display_name must be ≤120 chars' });
   }
-  await run('UPDATE souls SET user_direction = $1, display_name = $2, updated_at = $3 WHERE id = $4', [
-    direction,
+  await run('UPDATE souls SET steer = $1, display_name = $2, updated_at = $3 WHERE id = $4', [
+    newSteer,
     dname,
     nowIso(),
     soul.id,

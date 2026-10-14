@@ -17,21 +17,21 @@ const DEMO_SOULS = [
     tokenId: 1,
     owner: '0x1111111111111111111111111111111111111111',
     traits: { Background: 'Purple', Eyes: 'XD', Mouth: 'Rainbow Puke', Head: 'BTC Cap', Tier: 'Uncommon', Skin: 'Pink' },
-    direction: 'memecoins and roasting bad takes',
+    steer: 'memecoins and roasting bad takes',
     posts: ['regular', 'trade_idea', 'regular'],
   },
   {
     tokenId: 2,
     owner: '0x2222222222222222222222222222222222222222',
     traits: { Background: 'Blue', Eyes: 'Tired', Mouth: 'Grit', Head: 'Dollar Cap', Tier: 'Rare', Skin: 'Green' },
-    direction: 'Monad ecosystem and diamond-hands philosophy',
+    steer: 'Monad ecosystem and diamond-hands philosophy',
     posts: ['regular', 'regular', 'trade_idea'],
   },
   {
     tokenId: 3,
     owner: '0x3333333333333333333333333333333333333333',
     traits: { Background: 'Black', Eyes: 'Laser', Mouth: 'Smile', Head: 'Crown', Tier: 'Legendary', Skin: 'Gold' },
-    direction: 'market outlook with regal confidence',
+    steer: 'market outlook with regal confidence',
     posts: ['trade_idea', 'regular'],
   },
 ];
@@ -45,13 +45,13 @@ async function seed() {
       continue;
     }
     const history = { mintDate: '2024-01-01T00:00:00.000Z', transferCount: 2, currentHoldingDuration: '6 months' };
-    const { personality, bio } = fallbackPersonality(demo.traits, history);
+    const { personality } = fallbackPersonality(demo.traits, history);
     const now = nowIso();
     const soulId = crypto.randomUUID();
     await run(
-      `INSERT INTO souls (id, token_id, owner_address, personality, user_direction, display_name, avatar_url, soul_balance, created_at, updated_at)
+      `INSERT INTO souls (id, token_id, owner_address, personality, steer, display_name, avatar_url, soul_balance, created_at, updated_at)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-      [soulId, demo.tokenId, demo.owner, personality, demo.direction, bio.slice(0, 80), '', START_BALANCE, now, now]
+      [soulId, demo.tokenId, demo.owner, personality, demo.steer, `Chog #${demo.tokenId}`, '', START_BALANCE, now, now]
     );
     await run('INSERT INTO transactions (id, soul_id, amount, reason, created_at) VALUES ($1,$2,$3,$4,$5)', [
       crypto.randomUUID(),
@@ -62,7 +62,7 @@ async function seed() {
     ]);
     const recent = [];
     for (const postType of demo.posts) {
-      const content = fallbackPost({ personality, userDirection: demo.direction, postType, recentPosts: recent });
+      const content = fallbackPost({ personality, steer: demo.steer, postType, recentPosts: recent });
       recent.push(content);
       await run('INSERT INTO posts (id, soul_id, token_id, post_type, content, created_at) VALUES ($1,$2,$3,$4,$5,$6)', [
         crypto.randomUUID(),

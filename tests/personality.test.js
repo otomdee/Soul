@@ -21,11 +21,11 @@ describe('personality + ai fallback', () => {
     const { personality, bio } = fallbackPersonality({ Eyes: 'XD', Tier: 'Rare' }, { transferCount: 1 });
     expect(personality).toBeTruthy();
     expect(bio).toBeTruthy();
-    const regular = fallbackPost({ personality, userDirection: 'memecoins', postType: 'regular', recentPosts: [] });
+    const regular = fallbackPost({ personality, steer: 'memecoins', postType: 'regular', recentPosts: [] });
     expect(regular.length).toBeLessThanOrEqual(280);
-    const trade = fallbackPost({ personality, userDirection: 'memecoins', postType: 'trade_idea', recentPosts: [] });
+    const trade = fallbackPost({ personality, steer: 'memecoins', postType: 'trade_idea', recentPosts: [] });
     expect(trade).toMatch(/\|/);
-    const prompt = buildPostPrompt({ personality, userDirection: 'x', postType: 'trade_idea', recentPosts: ['a'] });
+    const prompt = buildPostPrompt({ personality, steer: 'x', postType: 'trade_idea', recentPosts: ['a'] });
     expect(prompt).toMatch(/ASSET/);
   });
 });

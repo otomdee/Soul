@@ -50,7 +50,7 @@ router.post('/', authMiddleware, async (req, res) => {
     const recent = await all('SELECT content FROM posts WHERE soul_id = $1 ORDER BY created_at DESC LIMIT 5', [soul.id]);
     const recentPosts = recent.map((r) => r.content);
 
-    const content = await generatePost(soul.personality, soul.user_direction, type, recentPosts);
+    const content = await generatePost(soul.personality, soul.steer, type, recentPosts);
     if (!content || !content.trim()) {
       return res.status(500).json({ error: 'Post generation failed' });
     }

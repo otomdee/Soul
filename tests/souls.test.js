@@ -15,6 +15,7 @@ describe('souls API', () => {
       .send({ tokenId: 5 });
     expect(res.status).toBe(201);
     expect(res.body.tokenId).toBe(5);
+    expect(res.body.displayName).toBe('Chog #5');
     expect(res.body.personality).toBeTruthy();
     expect(res.body.soulBalance).toBe(10);
   });
@@ -31,7 +32,7 @@ describe('souls API', () => {
     expect(res.status).toBe(403);
   });
 
-  test('GET /api/souls/:tokenId returns profile; PATCH updates direction', async () => {
+  test('GET /api/souls/:tokenId returns profile; PATCH updates steer and name', async () => {
     const request = getRequest();
     const wallet = ethers.Wallet.createRandom();
     blockchain.verifyOwnership.mockResolvedValue(true);
@@ -42,25 +43,33 @@ describe('souls API', () => {
     const got = await request.get('/api/souls/9');
     expect(got.status).toBe(200);
     expect(got.body.postCount).toBe(0);
+    expect(got.body.displayName).toBe('Chog #9');
 
     const patched = await request
       .patch('/api/souls/9')
       .set('Authorization', auth)
-      .send({ user_direction: 'talk about memecoins' });
+      .send({ steer: 'talk about memecoins' });
     expect(patched.status).toBe(200);
-    expect(patched.body.userDirection).toBe('talk about memecoins');
+    expect(patched.body.steer).toBe('talk about memecoins');
+
+    const renamed = await request
+      .patch('/api/souls/9')
+      .set('Authorization', auth)
+      .send({ display_name: 'Sir Croaksalot' });
+    expect(renamed.status).toBe(200);
+    expect(renamed.body.displayName).toBe('Sir Croaksalot');
 
     const tooLong = await request
       .patch('/api/souls/9')
       .set('Authorization', auth)
-      .send({ user_direction: 'x'.repeat(501) });
+      .send({ steer: 'x'.repeat(281) });
     expect(tooLong.status).toBe(400);
 
     const other = ethers.Wallet.createRandom();
     const forbidden = await request
       .patch('/api/souls/9')
       .set('Authorization', authHeader(other.address, []))
-      .send({ user_direction: 'hijack' });
+      .send({ steer: 'hijack' });
     expect(forbidden.status).toBe(403);
   });
 
