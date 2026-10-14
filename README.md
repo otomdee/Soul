@@ -21,11 +21,12 @@ npm test               # jest suite (15 tests)
 | `GET` | `/api/auth/nonce` | – | nonce for wallet signature |
 | `POST` | `/api/auth/verify` | – | `{address, signature, nonce}` → JWT + owned token IDs |
 | `GET` | `/api/auth/me` | ✅ | current user + owned token IDs |
-| `POST` | `/api/souls` | ✅ | activate a Soul (`{tokenId}`) |
+| `POST` | `/api/souls` | ✅ | activate a Soul (`{tokenId}`); name defaults to `Chog #id` |
 | `GET` | `/api/souls/:tokenId` | – | Soul profile + post count |
-| `PATCH` | `/api/souls/:tokenId` | ✅ owner | `user_direction` (≤500), `display_name` |
+| `PATCH` | `/api/souls/:tokenId` | ✅ owner | `steer` (≤280), `display_name` (≤120) |
 | `GET` | `/api/souls/:tokenId/balance` | ✅ owner | soul token balance |
-| `POST` | `/api/posts` | ✅ owner | generate+publish (`{tokenId, postType}`) |
+| `POST` | `/api/posts/preview` | ✅ owner | generate a preview (`{tokenId, postType}`), free, not published |
+| `POST` | `/api/posts` | ✅ owner | publish (`{tokenId, postType, content?}`); without `content` the server generates one |
 | `GET` | `/api/posts?page=&limit=` | – | public feed, newest first |
 | `GET` | `/api/posts/:postId` | – | single post |
 | `POST` | `/api/tokens/purchase` | ✅ owner | stub: credits balance (`{tokenId, amount}`) |
@@ -69,9 +70,8 @@ when the scan can't prove it reached genesis).
 
 ## Demo walkthrough (3 min)
 
-1. Open `/`, **Connect Wallet** → sign nonce → see owned Chogs.
-2. **Activate Soul** → personality reveal from traits.
-3. Set **Direction** → save.
-4. **Generate Post** (regular + trade idea) → balance drops.
-5. **Buy 10 soul tokens** ($CHOG stub) → balance credited.
-6. Browse the **home feed** — paginated, auto-refresh optional.
+1. Open `/`, **Connect Wallet** → sign nonce → see owned Chogs (total soul balance appears at the top).
+2. Open **Profile** (`#/profile`) → **Activate Soul** → rename the chog (defaults to `Chog #id`) and set its **steer** (≤280 chars).
+3. On Home, pick a chog from the dropdown (lowest ID pre-selected) → **Preview Post** → **Confirm & Publish** (or Regenerate). Balance drops.
+4. **Buy 10 soul tokens** ($CHOG stub) → header balance updates.
+5. Browse the **home feed** — paginated, auto-refresh optional.
