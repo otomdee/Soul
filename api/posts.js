@@ -26,10 +26,43 @@ function formatPost(row) {
   };
 }
 
-// POST /api/posts — generate + publish (owner only, costs soul tokens)
+// POST /api/posts/preview — generate a preview without publishing or charging.
+// Body: { tokenId, postType }. Returns { content, postType, tokenId }.
+router.post('/preview', authMiddleware, async (req, res) => {
+  try {
+    const { tokenId, postType } = req.body || {};
+    if (tokenId === undefined || Number.isNaN(Number(tokenId))) {
+      return res.status(400).json({ error: 'tokenId is required' });
+    }
+    const tid = Number(tokenId);
+    const type = postType || 'regular';
+    if (!['regular', 'trade_idea'].includes(type)) {
+      return res.status(400).json({ error: 'postType must be "regular" or "trade_idea"' });
+    }
+    const soul = await get('SELECT * FROM souls WHERE token_id = $1', [tid]);
+    if (!soul) return res.status(404).json({ error: 'Soul not found — activate it first' });
+    if (soul.owner_address.toLowerCase() !== req.user.address.toLowerCase()) {
+      return res.status(403).json({ error: 'Only the owner can preview for this Soul' });
+    }
+    const recent = await all('SELECT content FROM posts WHERE soul_id = $1 ORDER BY created_at DESC LIMIT 5', [soul.id]);
+    const content = await generatePost(soul.personality, soul.steer, type, recent.map((r) => r.content));
+    if (!content || !content.trim()) {
+      return res.status(500).json({ error: 'Post generation failed' });
+    }
+    res.json({ content, postType: type, tokenId: tid });
+  } catch (err) {
+    console.error('POST /posts/preview error:', err);
+    res.status(500).json({ error: 'Failed to generate preview' });
+  }
+});
+
+// POST /api/posts — publish (owner only, costs soul tokens).
+// Body: { tokenId, postType, content? }. Without content the server generates
+// one; with content the confirmed preview text is published as-is.
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { tokenId, postType } = req.body || {};
+    let content = req.body ? req.body.content : undefined;
     if (tokenId === undefined || Number.isNaN(Number(tokenId))) {
       return res.status(400).json({ error: 'tokenId is required' });
     }
@@ -50,7 +83,13 @@ router.post('/', authMiddleware, async (req, res) => {
     const recent = await all('SELECT content FROM posts WHERE soul_id = $1 ORDER BY created_at DESC LIMIT 5', [soul.id]);
     const recentPosts = recent.map((r) => r.content);
 
-    const content = await generatePost(soul.personality, soul.steer, type, recentPosts);
+    if (content === undefined) {
+      content = await generatePost(soul.personality, soul.steer, type, recentPosts);
+    } else if (typeof content !== 'string' || !content.trim() || content.length > 280) {
+      return res.status(400).json({ error: 'content must be 1–280 chars' });
+    } else {
+      content = content.trim();
+    }
     if (!content || !content.trim()) {
       return res.status(500).json({ error: 'Post generation failed' });
     }

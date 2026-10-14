@@ -31,6 +31,42 @@ describe('posts + tokens API', () => {
     expect(trade.body.content).toMatch(/\|/);
   });
 
+  test('POST /api/posts/preview generates without charging; confirmed content publishes', async () => {
+    const request = getRequest();
+    const wallet = ethers.Wallet.createRandom();
+    blockchain.verifyOwnership.mockResolvedValue(true);
+    const auth = authHeader(wallet.address, [25]);
+    await activate(request, auth, 25);
+
+    const preview = await request
+      .post('/api/posts/preview')
+      .set('Authorization', auth)
+      .send({ tokenId: 25, postType: 'regular' });
+    expect(preview.status).toBe(200);
+    expect(preview.body.content).toBeTruthy();
+
+    // Preview must not deduct or publish
+    const bal = await request.get('/api/souls/25/balance').set('Authorization', auth);
+    expect(bal.body.balance).toBe(10);
+    const feed = await request.get('/api/posts');
+    expect(feed.body.total).toBe(0);
+
+    // Confirm the preview text
+    const published = await request
+      .post('/api/posts')
+      .set('Authorization', auth)
+      .send({ tokenId: 25, postType: 'regular', content: preview.body.content });
+    expect(published.status).toBe(201);
+    expect(published.body.content).toBe(preview.body.content);
+    expect(published.body.balance).toBe(9);
+
+    const tooLong = await request
+      .post('/api/posts')
+      .set('Authorization', auth)
+      .send({ tokenId: 25, content: 'x'.repeat(281) });
+    expect(tooLong.status).toBe(400);
+  });
+
   test('POST /api/posts rejects invalid postType and insufficient balance', async () => {
     const request = getRequest();
     const wallet = ethers.Wallet.createRandom();
