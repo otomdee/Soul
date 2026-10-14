@@ -63,12 +63,47 @@ async function main() {
   console.log('Mint tx:', receipt.hash);
   console.log('Owner of token #0:', await contract.ownerOf(0));
 
+  recordMint(address, wallet.address, 0, receipt, GENESIS_TRAITS);
+
   const uri = await contract.tokenURI(0);
   console.log('tokenURI (truncated):', uri.slice(0, 120) + '…');
 
   console.log('\nNext steps:');
   console.log(`  CHOG_CONTRACT_ADDRESS=${address}`);
   console.log('  MONAD_RPC_URL=https://testnet-rpc.monad.xyz');
+}
+
+// Appends the mint to contracts/deployments.json so the backend can serve
+// exact token history without scanning logs. Contains only public data.
+function recordMint(contractAddress, minter, tokenId, receipt, traitValues) {
+  const fs = require('fs');
+  const recordPath = require('path').join(__dirname, '..', 'contracts', 'deployments.json');
+  let data = { tokens: {} };
+  try {
+    data = JSON.parse(fs.readFileSync(recordPath, 'utf8'));
+  } catch {
+    // start fresh
+  }
+  const categories = [
+    'Background', 'Base', 'Body', 'Eyes', 'Form', 'Head',
+    'Mouth', 'Naked', 'Side', 'Skin', 'Tier',
+  ];
+  const traits = {};
+  categories.forEach((cat, i) => {
+    traits[cat] = traitValues[i];
+  });
+  data.chainId = 10143;
+  data.contract = contractAddress;
+  data.deployer = minter;
+  data.tokens = data.tokens || {};
+  data.tokens[String(tokenId)] = {
+    minter,
+    mintTx: receipt.hash,
+    mintBlock: receipt.blockNumber,
+    traits,
+  };
+  fs.writeFileSync(recordPath, JSON.stringify(data, null, 2) + '\n');
+  console.log('Recorded mint in contracts/deployments.json');
 }
 
 if (require.main === module) {

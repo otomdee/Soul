@@ -1,0 +1,25 @@
+{
+  "chainId": 10143,
+  "contract": "0xc082D2b7C24751418099B57Fd52a7E79Af2eEAF6",
+  "deployer": "0xb528B7167D3Ec6BaA903eADcc80c912378A96d8e",
+  "tokens": {
+    "0": {
+      "minter": "0xb528B7167D3Ec6BaA903eADcc80c912378A96d8e",
+      "mintTx": "0x0019aad8880b6c303ba1ce54323bf1eaab140357596ac849036e4bcfdc403cff",
+      "mintBlock": 70762731,
+      "traits": {
+        "Background": "Purple",
+        "Base": "Standard",
+        "Body": "Round",
+        "Eyes": "XD",
+        "Form": "Classic",
+        "Head": "BTC Cap",
+        "Mouth": "Rainbow Puke",
+        "Naked": "Clothed",
+        "Side": "Left",
+        "Skin": "Pink",
+        "Tier": "Uncommon"
+      }
+    }
+  }
+}
