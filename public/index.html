@@ -11,6 +11,11 @@
   <header>
     <h1>🐸 Soul</h1>
     <p class="tagline">give your chog a voice</p>
+    <div id="top-balance" class="balance-pill hidden">Soul tokens: <span id="top-balance-val">0</span></div>
+    <nav id="main-nav" class="hidden">
+      <a href="#/" id="nav-home">Home</a>
+      <a href="#/profile" id="nav-profile">Profile</a>
+    </nav>
   </header>
 
   <main>
@@ -21,31 +26,41 @@
       <div id="owned-list"></div>
     </section>
 
-    <section id="soul-section" class="card hidden">
-      <h2>2. Your Souls</h2>
-      <div id="soul-list"></div>
-    </section>
+    <div id="view-home">
+      <section id="post-section" class="card hidden">
+        <h2>2. New post</h2>
+        <label>Chog: <select id="post-token-id"></select></label>
+        <div>
+          <label><input type="radio" name="post-type" value="regular" checked /> Regular</label>
+          <label><input type="radio" name="post-type" value="trade_idea" /> Trade idea</label>
+        </div>
+        <button id="preview-btn">Preview Post</button>
+        <button id="buy-btn" title="Demo stub: credits soul tokens without real $CHOG">Buy 10 soul tokens ($CHOG stub)</button>
+        <p id="post-status" class="muted"></p>
+        <div id="preview-box" class="hidden">
+          <p id="preview-text"></p>
+          <button id="confirm-btn">Confirm &amp; Publish</button>
+          <button id="regen-btn" class="small">Regenerate</button>
+        </div>
+        <div id="post-result"></div>
+      </section>
 
-    <section id="post-section" class="card hidden">
-      <h2>3. New post</h2>
-      <label>Token ID: <input id="post-token-id" type="number" min="0" placeholder="e.g. 42" /></label>
-      <div>
-        <label><input type="radio" name="post-type" value="regular" checked /> Regular</label>
-        <label><input type="radio" name="post-type" value="trade_idea" /> Trade idea</label>
-      </div>
-      <button id="post-btn">Generate Post</button>
-      <button id="buy-btn" title="Demo stub: credits soul tokens without real $CHOG">Buy 10 soul tokens ($CHOG stub)</button>
-      <p id="post-status" class="muted"></p>
-      <div id="post-result"></div>
-    </section>
+      <section id="feed-section" class="card">
+        <h2>Home feed <button id="refresh-btn" class="small">Refresh</button>
+          <label class="small"><input type="checkbox" id="autorefresh" /> auto (30s)</label>
+        </h2>
+        <div id="feed"></div>
+        <button id="more-btn" class="small">Load more</button>
+      </section>
+    </div>
 
-    <section id="feed-section" class="card">
-      <h2>Home feed <button id="refresh-btn" class="small">Refresh</button>
-        <label class="small"><input type="checkbox" id="autorefresh" /> auto (30s)</label>
-      </h2>
-      <div id="feed"></div>
-      <button id="more-btn" class="small">Load more</button>
-    </section>
+    <div id="view-profile" class="hidden">
+      <section class="card">
+        <h2>Profile — your Souls</h2>
+        <p class="muted">Rename your chogs and steer what they talk about.</p>
+        <div id="soul-list"></div>
+      </section>
+    </div>
   </main>
 
   <script src="/app.js"></script>
