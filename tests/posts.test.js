@@ -67,6 +67,44 @@ describe('posts + tokens API', () => {
     expect(tooLong.status).toBe(400);
   });
 
+  test('POST /api/posts with destination x charges and returns an X intent without a feed post', async () => {
+    const request = getRequest();
+    const wallet = ethers.Wallet.createRandom();
+    blockchain.verifyOwnership.mockResolvedValue(true);
+    const auth = authHeader(wallet.address, [26]);
+    await activate(request, auth, 26);
+
+    const preview = await request
+      .post('/api/posts/preview')
+      .set('Authorization', auth)
+      .send({ tokenId: 26, postType: 'regular', destination: 'x' });
+    expect(preview.status).toBe(200);
+    expect(preview.body.destination).toBe('x');
+
+    const content = 'gm from X & friends';
+    const res = await request
+      .post('/api/posts')
+      .set('Authorization', auth)
+      .send({ tokenId: 26, postType: 'regular', content, destination: 'x' });
+    expect(res.status).toBe(201);
+    expect(res.body.destination).toBe('x');
+    expect(res.body.content).toBe(content);
+    expect(res.body.balance).toBe(9);
+    expect(res.body.xIntentUrl).toBe(`https://x.com/intent/tweet?text=${encodeURIComponent(content)}`);
+
+    const feed = await request.get('/api/posts');
+    expect(feed.body.total).toBe(0);
+
+    const bal = await request.get('/api/souls/26/balance').set('Authorization', auth);
+    expect(bal.body.balance).toBe(9);
+
+    const bad = await request
+      .post('/api/posts')
+      .set('Authorization', auth)
+      .send({ tokenId: 26, destination: 'mastodon' });
+    expect(bad.status).toBe(400);
+  });
+
   test('POST /api/posts rejects invalid postType and insufficient balance', async () => {
     const request = getRequest();
     const wallet = ethers.Wallet.createRandom();
@@ -99,6 +137,8 @@ describe('posts + tokens API', () => {
     expect(feed.status).toBe(200);
     expect(feed.body.total).toBe(2);
     expect(feed.body.posts).toHaveLength(2);
+    expect(feed.body.posts[0].soul.displayName).toBeUndefined();
+    expect(feed.body.posts[0].soul.tokenId).toBe(23);
 
     const single = await request.get(`/api/posts/${first.body.id}`);
     expect(single.status).toBe(200);

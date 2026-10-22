@@ -55,9 +55,9 @@ describe('souls API', () => {
     const renamed = await request
       .patch('/api/souls/9')
       .set('Authorization', auth)
-      .send({ display_name: 'Sir Croaksalot' });
+      .send({ display_name: 'Sir Chaosalot' });
     expect(renamed.status).toBe(200);
-    expect(renamed.body.displayName).toBe('Sir Croaksalot');
+    expect(renamed.body.displayName).toBe('Sir Chaosalot');
 
     const tooLong = await request
       .patch('/api/souls/9')

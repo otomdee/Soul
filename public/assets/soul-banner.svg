@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Galindo';
+        font-style: normal;
+        font-weight: 400;
+        src: url(data:font/woff2;base64,d09GMgABAAAAAAScAA0AAAAAB4wAAARMAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG4EYHBgGYABUEQgKhFiEXgsOAAE2AiQDGAQgBYQoByAbowbIxAfw0n/RwZNTk7m2m3Oz9BV82Dm4HDc2PeULwP/vf19jDvtwLPoe0zCQSW+LisIwsIgD9rTCa3JbP8DUefE1EAB0mAxPEJ111m5oQCPivgeVjqb+zRhW2qBBBmMSudAF6MtNwhEOGvdSfgSUn9AtkyBiZIqoUqBWYISGAqYEhoPYpFxe+UwpOBqjGQtRdBCxusVsZQKQI6ZMetRraO5kGSrxghdd4kS6yEtxOUnJiAWLIvX7/64A1O9TnNnXtelU5iNDVgLygAhHisGEoBFbNkADcxosMpGDAhQpCs+vmCgfKReV88oZ5XSWjS6cTVWB2VA1shngKoivxPFiRkmz9BX4stGO49P8p0kf65YKhfI7hO3tYqNQKAiCgJ4Z+2RZJmxS8caLF5fqlgqCEMgLvAD+raIDD8QH+mWyLHP8m8KHuqWSJEkSYZMxkWX9MrGbmsEjLux8UNywmQdf9EDUL5NTdhV32F46PlNU62TFFyXd0sJjq2KR2A3MECAffJut+Bg3q8l4URTtLuQXD6kliYy9kf5jpOY6LNaM0i4f+k49Tac+p64//0S9Un33KvUt9QFRQzwjH+B8Wo0FcbHfVmhXMRvI1ZGc/k9D/4drbrubvRqpFk2j4fFoJKYhftS1sbaxF+Z9Fkf+NG5iApFEJjL01/u7xj15OX7wRMYe+23Zy2e1XYj+advm5E+4vRvbdkVtGxPXdN3xQPaSGQ0nQj9CsW3v3OazF7v/8V2fsGrssuA5BY2DiVu0tec0E8KnlDDlBweYiAiOuRjHxNqHGHsOJakvjLjpfDF2VXvJtp6s0Fm19XzaSp91Y5I2fVa1fWPRDVX1Y98kMtO5RF86Mp6yX7SEHes7Jlm30JyQr7sz9q7r+cil5QU8KuK/RfukR3Fn2tZuansSbtv8V/GZ23VBHwzohVFnJi43LAkxDZn26K5XFNHndEctm69c6GDCwnqY36ZpNzFHyLOFldRe9RqNrXzO+IVThGFH6QUAgLfTCpbHaU9rzJG/afSvS+fZp5/vn+g+zxZ/+u/6vys036rfd6h9xmmaeRc0ad3+u65c13z73JKYqMhmYPCU3ogZqiBEMRvhorKgltKmwjaosRB0FiRXUxpgTIGgtVb/G48XJOomXIWNdB0nUY9FJ5T04SiD8ciPqjAZge+aEAigFVZY0Ytw+MAHHBrQjzb0wgrCG9znOuGNHvSjBT7IQTIykYI6dKIN3WhED7yQjya0YMDEumBajCb0ZzLrQTdY+MEbvj29OHCwog0t6DKY/VIDXBGHHCShEGlwQzjYgmHjOn/4wg/+VexgZhPQg15ME8eWMzrPwhUNcMs6z6Ie08AinsA6MVs6bIBmtQ1csdMhcOigxMTweBxYaTU2hNX9OkYtFkyWsTca0INnbvAEiyG0wYpWsGeG3HWbH0QTGmFEshCchZiN67rQBBb254z2X1oqPqnQcPtvAA==) format('woff2');
+      }
+      @font-face {
+        font-family: 'Gaegu';
+        font-style: normal;
+        font-weight: 700;
+        src: url(data:font/woff2;base64,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) format('woff2');
+      }
+      @font-face {
+        font-family: 'Koulen';
+        font-style: normal;
+        font-weight: 400;
+        src: url(data:font/woff2;base64,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) format('woff2');
+      }
+    </style>
+  </defs>
+
+  <!-- Cream background -->
+  <rect width="1200" height="400" fill="#EEECDF"/>
+
+  <!-- ===== HERO HALO (purple circle, thick border, hard shadow) ===== -->
+  <!-- Shadow -->
+  <circle cx="223" cy="222" r="110" fill="#121B32"/>
+  <!-- Circle -->
+  <circle cx="210" cy="212" r="110" fill="#836EF9" stroke="#121B32" stroke-width="3"/>
+
+  <!-- ===== CHOG FACE (paper card, thick border, hard shadow) ===== -->
+  <!-- Shadow -->
+  <rect x="165" y="172" width="140" height="140" rx="20" fill="#121B32"/>
+  <!-- Card -->
+  <rect x="158" y="165" width="140" height="140" rx="20" fill="#FFFDF4" stroke="#121B32" stroke-width="3"/>
+
+  <!-- Left eye -->
+  <circle cx="205" cy="222" r="21" fill="#E0A0B6"/>
+  <circle cx="205" cy="222" r="18" fill="#FFFFFF"/>
+  <circle cx="205" cy="224" r="13.5" fill="#121B32"/>
+  <circle cx="199" cy="218" r="5.5" fill="#FFFFFF"/>
+  <circle cx="210" cy="228" r="2.8" fill="#FFFFFF" opacity="0.6"/>
+
+  <!-- Right eye -->
+  <circle cx="260" cy="222" r="21" fill="#E0A0B6"/>
+  <circle cx="260" cy="222" r="18" fill="#FFFFFF"/>
+  <circle cx="260" cy="224" r="13.5" fill="#121B32"/>
+  <circle cx="254" cy="218" r="5.5" fill="#FFFFFF"/>
+  <circle cx="265" cy="228" r="2.8" fill="#FFFFFF" opacity="0.6"/>
+
+  <!-- Blush -->
+  <ellipse cx="189" cy="245" rx="12" ry="7" fill="#F2AABF" opacity="0.5"/>
+  <ellipse cx="276" cy="245" rx="12" ry="7" fill="#F2AABF" opacity="0.5"/>
+
+  <!-- Mouth -->
+  <ellipse cx="232" cy="256" rx="8" ry="7" fill="#121B32"/>
+  <ellipse cx="232" cy="260" rx="5" ry="3.5" fill="#E07898"/>
+
+  <!-- ===== SPEECH BUBBLE ===== -->
+  <!-- Shadow -->
+  <rect x="295" y="133" width="90" height="40" rx="14" fill="#121B32"/>
+  <!-- Bubble -->
+  <rect x="291" y="129" width="90" height="40" rx="14" fill="#FFFDF4" stroke="#121B32" stroke-width="3"/>
+  <!-- Tail -->
+  <polygon points="300,169 290,185 312,169" fill="#FFFDF4" stroke="#121B32" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="298" y="163" width="18" height="10" fill="#FFFDF4"/>
+  <!-- Bubble text -->
+  <text x="336" y="155" font-family="'Gaegu', cursive" font-size="20" font-weight="700" fill="#121B32" text-anchor="middle">gchog!</text>
+
+  <!-- ===== MAIN TITLE ===== -->
+  <text x="440" y="200" font-family="'Galindo', sans-serif" font-size="96" fill="#121B32" letter-spacing="3">SOUL</text>
+
+  <!-- ===== TAGLINE ===== -->
+  <text x="445" y="248" font-family="'Gaegu', cursive" font-size="30" font-weight="700" fill="#121B32">give your <tspan fill="#836EF9">chog</tspan> a voice</text>
+
+  <!-- ===== STICKER BADGES ===== -->
+  <!-- "CWO" sticker (pink, rotated, thick border, hard shadow) -->
+  <g transform="translate(880, 100) rotate(8)">
+    <rect x="4" y="4" width="66" height="32" rx="8" fill="#121B32"/>
+    <rect x="0" y="0" width="66" height="32" rx="8" fill="#D83E7E" stroke="#121B32" stroke-width="3"/>
+    <text x="33" y="23" font-family="'Koulen', sans-serif" font-size="15" fill="#FFFDF4" text-anchor="middle" letter-spacing="3">CWO</text>
+  </g>
+
+  <!-- "MONAD" sticker (yellow, rotated opposite) -->
+  <g transform="translate(970, 240) rotate(-6)">
+    <rect x="4" y="4" width="90" height="32" rx="8" fill="#121B32"/>
+    <rect x="0" y="0" width="90" height="32" rx="8" fill="#FFE27A" stroke="#121B32" stroke-width="3"/>
+    <text x="45" y="23" font-family="'Koulen', sans-serif" font-size="15" fill="#121B32" text-anchor="middle" letter-spacing="3">MONAD</text>
+  </g>
+
+  <!-- ===== EYEBROW PILL (yellow pill badge like the site) ===== -->
+  <g transform="translate(445, 266)">
+    <rect x="3" y="3" width="196" height="28" rx="14" fill="#121B32"/>
+    <rect x="0" y="0" width="196" height="28" rx="14" fill="#FFE27A" stroke="#121B32" stroke-width="3"/>
+    <text x="98" y="19" font-family="'Koulen', sans-serif" font-size="12" fill="#121B32" text-anchor="middle" letter-spacing="3">MONAD'S MOST ADORED</text>
+  </g>
+
+  <!-- ===== SPARKS ===== -->
+  <!-- Spark (8-pointed star shape, like spark.svg) -->
+  <g transform="translate(850, 180)">
+    <polygon points="0,-18 4,-6 16,-12 7,-2 18,0 7,2 16,12 4,6 0,18 -4,6 -16,12 -7,2 -18,0 -7,-2 -16,-12 -4,-6" fill="#836EF9" stroke="#121B32" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1100, 140) rotate(22) scale(0.7)">
+    <polygon points="0,-18 4,-6 16,-12 7,-2 18,0 7,2 16,12 4,6 0,18 -4,6 -16,12 -7,2 -18,0 -7,-2 -16,-12 -4,-6" fill="#D83E7E" stroke="#121B32" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1050, 310) rotate(-15) scale(0.55)">
+    <polygon points="0,-18 4,-6 16,-12 7,-2 18,0 7,2 16,12 4,6 0,18 -4,6 -16,12 -7,2 -18,0 -7,-2 -16,-12 -4,-6" fill="#FFE27A" stroke="#121B32" stroke-width="1.5"/>
+  </g>
+
+</svg>
