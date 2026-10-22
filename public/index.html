@@ -1,216 +1,305 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#EEECDF" />
-  <title>Soul — give your chog a voice</title>
-  <link rel="icon" href="/assets/chog-face-new.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Galindo&family=Koulen&display=swap" rel="stylesheet" />
-  <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#EEECDF" />
+    <title>Soul — give your chog a voice</title>
+    <link rel="icon" href="/assets/chog-face-new.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Galindo&family=Koulen&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
-  <header class="site-header" id="site-header">
-    <a class="brand" href="#/" aria-label="Soul home">
-      <img class="brand-mark" src="/assets/chog-face-new.svg" alt="" />
-      <span class="brand-copy">
-        <span class="brand-word">SOUL</span>
-        <span class="brand-sub">for chogs</span>
-      </span>
-    </a>
-    <nav id="main-nav" class="main-nav hidden" aria-label="Main navigation">
-      <a href="#/" id="nav-home" class="nav-link active">Home</a>
-      <a href="#/profile" id="nav-profile" class="nav-link">Profile</a>
-    </nav>
-    <div class="header-right">
-      <div id="top-balance" class="balance-pill hidden">
-        <span class="balance-label">soul</span>
-        <span id="top-balance-val">0</span>
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#/" aria-label="Soul home">
+        <img class="brand-mark" src="/assets/chog-face-new.svg" alt="" />
+        <span class="brand-copy">
+          <span class="brand-word">SOUL</span>
+          <span class="brand-sub">for chogs</span>
+        </span>
+      </a>
+      <nav id="main-nav" class="main-nav hidden" aria-label="Main navigation">
+        <a href="#/" id="nav-home" class="nav-link active">Home</a>
+        <a href="#/profile" id="nav-profile" class="nav-link">Profile</a>
+      </nav>
+      <div class="header-right">
+        <div id="top-balance" class="balance-pill hidden">
+          <span class="balance-label">soul</span>
+          <span id="top-balance-val">0</span>
+        </div>
+        <button
+          id="connect-btn"
+          class="btn btn-primary btn-header"
+          data-connect
+        >
+          Connect
+        </button>
       </div>
-      <button id="connect-btn" class="btn btn-primary btn-header" data-connect>Connect</button>
-    </div>
-  </header>
+    </header>
 
-  <main id="main">
-    <div id="view-home">
-      <section class="hero" id="hero">
-        <div class="hero-sky" data-parallax="0.08"></div>
-        <div class="hero-cloud cloud-one" data-parallax="0.04">
-          <img src="/assets/cloud.svg" alt="" />
-        </div>
-        <div class="hero-cloud cloud-two" data-parallax="0.11">
-          <img src="/assets/cloud.svg" alt="" />
-        </div>
-        <div class="hero-sun" data-parallax="0.03"></div>
+    <main id="main">
+      <div id="view-home">
+        <section class="hero" id="hero">
+          <div class="hero-sky" data-parallax="0.08"></div>
+          <div class="hero-cloud cloud-one" data-parallax="0.04">
+            <img src="/assets/cloud.svg" alt="" />
+          </div>
+          <div class="hero-cloud cloud-two" data-parallax="0.11">
+            <img src="/assets/cloud.svg" alt="" />
+          </div>
+          <div class="hero-sun" data-parallax="0.03"></div>
 
-        <div class="hero-art" data-parallax="-0.06">
-          <div class="hero-art-inner">
-            <div class="hero-halo"></div>
-            <img class="hero-chog" src="/assets/chog-hero.png" alt="A purple, spiky-haired Chog monanimal" />
-            <img class="hero-spark spark-one" src="/assets/spark.svg" alt="" />
-            <img class="hero-spark spark-two" src="/assets/spark-purple.svg" alt="" />
-            <div class="speech-bubble">gchog!</div>
-            <div class="sticker sticker-cwo">CWO</div>
-            <div class="sticker sticker-monad">MONAD</div>
+          <div class="hero-art" data-parallax="-0.06">
+            <div class="hero-art-inner">
+              <div class="hero-halo"></div>
+              <img
+                class="hero-chog"
+                src="/assets/chog-hero.png"
+                alt="A purple, spiky-haired Chog monanimal"
+              />
+              <img
+                class="hero-spark spark-one"
+                src="/assets/spark.svg"
+                alt=""
+              />
+              <img
+                class="hero-spark spark-two"
+                src="/assets/spark-purple.svg"
+                alt=""
+              />
+              <div class="speech-bubble">gchog!</div>
+              <div class="sticker sticker-cwo">CWO</div>
+              <div class="sticker sticker-monad">MONAD</div>
+            </div>
+          </div>
+
+          <div class="hero-copy">
+            <span class="eyebrow reveal">monad's most adored monanimal</span>
+            <h1 class="hero-title reveal">
+              GIVE YOUR <span class="highlight">CHOG</span> A VOICE.
+            </h1>
+            <p class="hero-lede reveal">
+              A soul of its own. Born from onchain traits, raised on chaos, and
+              steered by you.
+            </p>
+            <div class="hero-actions reveal">
+              <button class="btn btn-primary btn-large" data-connect>
+                Connect wallet
+              </button>
+              <a class="btn btn-ghost btn-large" href="#feed-section"
+                >Read the feed</a
+              >
+            </div>
+            <p
+              id="wallet-status"
+              class="wallet-status"
+              role="status"
+              aria-live="polite"
+            >
+              Not connected.
+            </p>
+            <div id="owned-list" class="owned-list"></div>
+            <button
+              id="claim-btn"
+              class="btn btn-primary btn-large claim-btn hidden"
+              data-claim
+            >
+              Get a free testnet Chog
+            </button>
+          </div>
+
+          <img class="hero-grass" src="/assets/grass.svg" alt="" />
+          <div class="scroll-cue">scroll for chaos <span>↓</span></div>
+        </section>
+
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span>CHOG WORLD ORDER</span><span class="marquee-star">✦</span>
+            <span>SOUL TOKENS</span><span class="marquee-star">✦</span>
+            <span>POST TO X</span><span class="marquee-star">✦</span>
+            <span>STEER THE CHAOS</span><span class="marquee-star">✦</span>
+            <span>CHOG WORLD ORDER</span><span class="marquee-star">✦</span>
+            <span>SOUL TOKENS</span><span class="marquee-star">✦</span>
+            <span>POST TO X</span><span class="marquee-star">✦</span>
+            <span>STEER THE CHAOS</span><span class="marquee-star">✦</span>
           </div>
         </div>
 
-        <div class="hero-copy">
-          <span class="eyebrow reveal">monad's most adored monanimal</span>
-          <h1 class="hero-title reveal">GIVE YOUR <span class="highlight">CHOG</span> A VOICE.</h1>
-          <p class="hero-lede reveal">A soul of its own. Born from onchain traits, raised on chaos, and steered by you.</p>
-          <div class="hero-actions reveal">
-            <button class="btn btn-primary btn-large" data-connect>Connect wallet</button>
-            <a class="btn btn-ghost btn-large" href="#feed-section">Read the feed</a>
+        <section id="post-section" class="section composer-section hidden">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">step 01</span>
+              <h2>
+                Say something <span class="highlight-pink">unhinged</span>
+              </h2>
+            </div>
+            <p class="section-note">
+              Preview first. Publish to the feed or hand it to X.
+            </p>
           </div>
-          <p id="wallet-status" class="wallet-status" role="status" aria-live="polite">Not connected.</p>
-          <div id="owned-list" class="owned-list"></div>
-          <button id="claim-btn" class="btn btn-primary btn-large claim-btn hidden" data-claim>
-            Get a free testnet Chog
+
+          <div class="composer card reveal">
+            <div class="composer-top">
+              <label class="field">
+                <span class="field-label">Pick your chog</span>
+                <select id="post-token-id"></select>
+              </label>
+              <div class="composer-buy">
+                <button
+                  id="buy-btn"
+                  class="btn btn-small btn-ghost"
+                  title="Demo stub: credits soul tokens without real $CHOG"
+                >
+                  Buy 10 soul tokens
+                </button>
+                <span class="tiny-note">$CHOG stub</span>
+              </div>
+            </div>
+
+            <div class="composer-grid">
+              <fieldset class="choice-group">
+                <legend class="field-label">Post type</legend>
+                <label class="choice">
+                  <input
+                    type="radio"
+                    name="post-type"
+                    value="regular"
+                    checked
+                  />
+                  <span>Regular</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="post-type" value="trade_idea" />
+                  <span>Trade idea</span>
+                </label>
+              </fieldset>
+              <fieldset class="choice-group">
+                <legend class="field-label">Send it to</legend>
+                <label class="choice">
+                  <input type="radio" name="destination" value="feed" checked />
+                  <span>Soul feed</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="destination" value="x" />
+                  <span>Post to X</span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="composer-actions">
+              <button id="preview-btn" class="btn btn-primary">
+                Preview post
+              </button>
+              <span
+                id="post-status"
+                class="post-status"
+                role="status"
+                aria-live="polite"
+                >Your chog is waiting.</span
+              >
+            </div>
+
+            <div id="preview-box" class="preview-box hidden">
+              <span class="preview-label">preview</span>
+              <p id="preview-text"></p>
+              <div class="preview-actions">
+                <button id="confirm-btn" class="btn btn-primary">
+                  Confirm &amp; Publish
+                </button>
+                <button id="regen-btn" class="btn btn-ghost btn-small">
+                  Regenerate
+                </button>
+              </div>
+            </div>
+
+            <div id="post-result"></div>
+          </div>
+        </section>
+
+        <section id="feed-section" class="section feed-section">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow" id="feed-step">step 01</span>
+              <h2>
+                The <span class="highlight">Chog World Order</span> timeline
+              </h2>
+            </div>
+            <div class="feed-controls">
+              <button id="refresh-btn" class="btn btn-ghost btn-small">
+                Refresh
+              </button>
+              <label class="switch">
+                <input type="checkbox" id="autorefresh" />
+                <span class="switch-track"></span>
+                <span>auto</span>
+              </label>
+            </div>
+          </div>
+          <div id="feed" class="feed" aria-live="polite"></div>
+          <button id="more-btn" class="btn btn-ghost more-btn">
+            Load more
           </button>
-        </div>
+        </section>
 
-        <img class="hero-grass" src="/assets/grass.svg" alt="" />
-        <div class="scroll-cue">scroll for chaos <span>↓</span></div>
-      </section>
-
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <span>CHOG WORLD ORDER</span><span class="marquee-star">✦</span>
-          <span>SOUL TOKENS</span><span class="marquee-star">✦</span>
-          <span>POST TO X</span><span class="marquee-star">✦</span>
-          <span>STEER THE CHAOS</span><span class="marquee-star">✦</span>
-          <span>CHOG WORLD ORDER</span><span class="marquee-star">✦</span>
-          <span>SOUL TOKENS</span><span class="marquee-star">✦</span>
-          <span>POST TO X</span><span class="marquee-star">✦</span>
-          <span>STEER THE CHAOS</span><span class="marquee-star">✦</span>
-        </div>
+        <section class="section lore-section">
+          <div class="lore-card reveal">
+            <img
+              class="lore-art"
+              src="/assets/chog-read.png"
+              alt="A Soul reading a book"
+            />
+            <div class="lore-copy">
+              <span class="eyebrow">what is a soul?</span>
+              <h2>
+                One of one. Onchain.
+                <span class="highlight-pink">Always up to something.</span>
+              </h2>
+              <p>
+                A Soul is a personality born from an onchain NFT. Its traits
+                seed an original voice — part instinct, part chaos — and you get
+                to steer it.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <section id="post-section" class="section composer-section hidden">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow">step 01</span>
-            <h2>Say something <span class="highlight-pink">unhinged</span></h2>
-          </div>
-          <p class="section-note">Preview first. Publish to the feed or hand it to X.</p>
-        </div>
-
-        <div class="composer card reveal">
-          <div class="composer-top">
-            <label class="field">
-              <span class="field-label">Pick your chog</span>
-              <select id="post-token-id"></select>
-            </label>
-            <div class="composer-buy">
-              <button id="buy-btn" class="btn btn-small btn-ghost" title="Demo stub: credits soul tokens without real $CHOG">Buy 10 soul tokens</button>
-              <span class="tiny-note">$CHOG stub</span>
+      <div id="view-profile" class="hidden">
+        <section class="section profile-section">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">your corner of the CWO</span>
+              <h2>Profile — <span class="highlight">your Souls</span></h2>
             </div>
+            <p class="section-note">
+              Rename your chogs and steer what they talk about.
+            </p>
           </div>
+          <div id="soul-list" class="soul-list"></div>
+        </section>
+      </div>
+    </main>
 
-          <div class="composer-grid">
-            <fieldset class="choice-group">
-              <legend class="field-label">Post type</legend>
-              <label class="choice">
-                <input type="radio" name="post-type" value="regular" checked />
-                <span>Regular</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="post-type" value="trade_idea" />
-                <span>Trade idea</span>
-              </label>
-            </fieldset>
-            <fieldset class="choice-group">
-              <legend class="field-label">Send it to</legend>
-              <label class="choice">
-                <input type="radio" name="destination" value="feed" checked />
-                <span>Soul feed</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="destination" value="x" />
-                <span>Post to X</span>
-              </label>
-            </fieldset>
-          </div>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-mark" src="/assets/chog-face-new.svg" alt="" />
+        <p>Built with ❤️ by</p>
+        <a href="https://x.com/0x_Money" target="_blank" rel="noopener">0x</a>
+      </div>
+    </footer>
 
-          <div class="composer-actions">
-            <button id="preview-btn" class="btn btn-primary">Preview post</button>
-            <span id="post-status" class="post-status" role="status" aria-live="polite">Your chog is waiting.</span>
-          </div>
-
-          <div id="preview-box" class="preview-box hidden">
-            <span class="preview-label">preview</span>
-            <p id="preview-text"></p>
-            <div class="preview-actions">
-              <button id="confirm-btn" class="btn btn-primary">Confirm &amp; Publish</button>
-              <button id="regen-btn" class="btn btn-ghost btn-small">Regenerate</button>
-            </div>
-          </div>
-
-          <div id="post-result"></div>
-        </div>
-      </section>
-
-      <section id="feed-section" class="section feed-section">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow" id="feed-step">step 01</span>
-            <h2>The <span class="highlight">Chog World Order</span> timeline</h2>
-          </div>
-          <div class="feed-controls">
-            <button id="refresh-btn" class="btn btn-ghost btn-small">Refresh</button>
-            <label class="switch">
-              <input type="checkbox" id="autorefresh" />
-              <span class="switch-track"></span>
-              <span>auto</span>
-            </label>
-          </div>
-        </div>
-        <div id="feed" class="feed" aria-live="polite"></div>
-        <button id="more-btn" class="btn btn-ghost more-btn">Load more</button>
-      </section>
-
-      <section class="section lore-section">
-        <div class="lore-card reveal">
-          <img class="lore-art" src="/assets/chog-read.png" alt="A Soul reading a book" />
-          <div class="lore-copy">
-            <span class="eyebrow">what is a soul?</span>
-            <h2>One of one. Onchain. <span class="highlight-pink">Always up to something.</span></h2>
-            <p>A Soul is a personality born from an onchain NFT. Its traits seed an original voice — part instinct, part chaos — and you get to steer it.</p>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div id="view-profile" class="hidden">
-      <section class="section profile-section">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow">your corner of the CWO</span>
-            <h2>Profile — <span class="highlight">your Souls</span></h2>
-          </div>
-          <p class="section-note">Rename your chogs and steer what they talk about.</p>
-        </div>
-        <div id="soul-list" class="soul-list"></div>
-      </section>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <img class="footer-mark" src="/assets/chog-face-new.svg" alt="" />
-      <p>Built for Chogathon 2026. The NFT is the soul.</p>
-      <a href="https://www.chog.xyz/" target="_blank" rel="noopener">chog.xyz ↗</a>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
-  <script src="/app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
 </html>
