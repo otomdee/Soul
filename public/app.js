@@ -36,6 +36,12 @@ function authHeaders() {
 
 const $ = (id) => document.getElementById(id);
 const FALLBACK_AVATAR = '/assets/chog-face.png';
+const DEMO_AVATARS = [
+  '/assets/demo/avatar-0.png',
+  '/assets/demo/avatar-1.png',
+  '/assets/demo/avatar-2.png',
+  '/assets/demo/avatar-3.png',
+];
 const FEED_LIMIT = 20;
 
 let feedPage = 1;
@@ -62,8 +68,12 @@ function escapeHtml(value) {
 
 function avatarFor(soul) {
   const url = soul && soul.avatarUrl ? String(soul.avatarUrl) : '';
-  if (!url || /example\.com/i.test(url)) return FALLBACK_AVATAR;
-  return url;
+  if (url && !/example\.com/i.test(url)) return url;
+  const tokenId = Number(soul && soul.tokenId);
+  if (Number.isInteger(tokenId) && tokenId >= 0) {
+    return DEMO_AVATARS[tokenId % DEMO_AVATARS.length];
+  }
+  return FALLBACK_AVATAR;
 }
 
 function avatarTag(soul, className = 'post-avatar') {

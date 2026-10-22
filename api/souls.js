@@ -6,6 +6,7 @@ const { authMiddleware } = require('../lib/middleware');
 const { get, run, nowIso } = require('../lib/db');
 const { verifyOwnership, getTokenMetadata, getTokenHistory } = require('../lib/blockchain');
 const { generatePersonality } = require('../lib/ai');
+const { demoAvatarFor, needsDemoAvatar } = require('../lib/avatars');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ function publicSoul(row) {
     personality: row.personality,
     steer: row.steer,
     displayName: row.display_name,
-    avatarUrl: row.avatar_url,
+    avatarUrl: needsDemoAvatar(row.avatar_url) ? demoAvatarFor(row.token_id) : row.avatar_url,
     soulBalance: row.soul_balance,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -73,7 +74,7 @@ router.post('/', authMiddleware, async (req, res) => {
     try {
       const meta = await getTokenMetadata(tid);
       traits = meta.traits || {};
-      image = meta.image || '';
+      image = needsDemoAvatar(meta.image) ? demoAvatarFor(tid) : meta.image;
     } catch (err) {
       console.error('getTokenMetadata failed:', err.message);
     }

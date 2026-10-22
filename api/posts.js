@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const { authMiddleware } = require('../lib/middleware');
 const { get, all, run, nowIso } = require('../lib/db');
 const { generatePost } = require('../lib/ai');
+const { demoAvatarFor, needsDemoAvatar } = require('../lib/avatars');
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ function formatPost(row) {
     content: row.content,
     createdAt: row.created_at,
     soul: {
-      avatarUrl: row.avatar_url,
+      avatarUrl: needsDemoAvatar(row.avatar_url) ? demoAvatarFor(row.token_id) : row.avatar_url,
       tokenId: row.token_id,
     },
   };

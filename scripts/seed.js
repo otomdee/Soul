@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const { migrate } = require('./migrate');
 const { run, get, closeDb, nowIso } = require('../lib/db');
 const { fallbackPersonality, fallbackPost } = require('../lib/ai');
+const { demoAvatarFor } = require('../lib/avatars');
 
 const START_BALANCE = parseInt(process.env.SOUL_TOKEN_START_BALANCE || '10', 10);
 
@@ -51,7 +52,7 @@ async function seed() {
     await run(
       `INSERT INTO souls (id, token_id, owner_address, personality, steer, display_name, avatar_url, soul_balance, created_at, updated_at)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-      [soulId, demo.tokenId, demo.owner, personality, demo.steer, `Chog #${demo.tokenId}`, '', START_BALANCE, now, now]
+      [soulId, demo.tokenId, demo.owner, personality, demo.steer, `Chog #${demo.tokenId}`, demoAvatarFor(demo.tokenId), START_BALANCE, now, now]
     );
     await run('INSERT INTO transactions (id, soul_id, amount, reason, created_at) VALUES ($1,$2,$3,$4,$5)', [
       crypto.randomUUID(),
