@@ -9,6 +9,7 @@ const authRoutes = require('./api/auth');
 const soulsRoutes = require('./api/souls');
 const postsRoutes = require('./api/posts');
 const tokensRoutes = require('./api/tokens');
+const chogRoutes = require('./api/chog');
 
 function createApp() {
   const app = express();
@@ -20,6 +21,7 @@ function createApp() {
   app.use('/api/souls', soulsRoutes);
   app.use('/api/posts', postsRoutes);
   app.use('/api/tokens', tokensRoutes);
+  app.use('/api/chog', chogRoutes);
 
   // Minimal frontend
   app.use(express.static(path.join(__dirname, 'public')));

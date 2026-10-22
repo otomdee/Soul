@@ -44,6 +44,7 @@ let pendingPreview = null;
 let currentTokenIds = [];
 let revealObserver = null;
 let currentView = null;
+let isClaiming = false;
 
 function isAuthed() {
   return Boolean(localStorage.getItem('soul_jwt'));
@@ -107,6 +108,46 @@ function showAuthedUI() {
   document.querySelectorAll('[data-connect]').forEach((button) => {
     button.textContent = 'Reconnect';
   });
+  updateClaimButton();
+}
+
+function updateClaimButton() {
+  const button = $('claim-btn');
+  if (!button) return;
+  button.classList.toggle('hidden', !isAuthed() || currentTokenIds.length > 0);
+}
+
+function setClaimBusy(busy) {
+  isClaiming = busy;
+  document.querySelectorAll('[data-claim]').forEach((button) => {
+    button.disabled = busy;
+    button.textContent = busy ? 'Minting your Chog…' : 'Get a free testnet Chog';
+  });
+}
+
+async function claimChog() {
+  if (isClaiming) return;
+  if (!isAuthed()) {
+    $('wallet-status').textContent = 'Connect your wallet first.';
+    return;
+  }
+  setClaimBusy(true);
+  $('wallet-status').textContent = 'Minting a free testnet Chog to your wallet…';
+  try {
+    const claim = await api.post('/api/chog/claim', {});
+    $('wallet-status').textContent = `Chog #${claim.tokenId} minted to ${claim.address}.`;
+    const me = await api.get('/api/auth/me');
+    currentTokenIds = (me.tokenIds || []).map(Number).sort((a, b) => a - b);
+    renderOwned(currentTokenIds);
+    updateClaimButton();
+    await refreshSouls(currentTokenIds);
+    await refreshTopBalance(currentTokenIds);
+    window.location.hash = '#/profile';
+  } catch (err) {
+    $('wallet-status').textContent = `Claim failed: ${err.message}`;
+  } finally {
+    setClaimBusy(false);
+  }
 }
 
 function renderOwned(tokenIds) {
@@ -189,7 +230,8 @@ async function refreshSouls(tokenIds) {
     list.innerHTML = `
       <div class="soul-empty reveal is-visible">
         <img src="/assets/chog-read.png" alt="A Chog reading a book" />
-        <p>No Chogs in this wallet yet. Connect a wallet that holds one.</p>
+        <p>No Chogs in this wallet yet. Claim a free testnet Chog to get started.</p>
+        <button class="btn btn-primary" data-claim>Get a free testnet Chog</button>
       </div>`;
     return;
   }
@@ -517,6 +559,12 @@ function initHeaderScroll() {
 
 document.querySelectorAll('[data-connect]').forEach((button) => {
   button.addEventListener('click', connectWallet);
+});
+document.addEventListener('click', (event) => {
+  const claim = event.target.closest('[data-claim]');
+  if (!claim) return;
+  event.preventDefault();
+  claimChog();
 });
 $('soul-list').addEventListener('click', onSoulListClick);
 $('preview-btn').addEventListener('click', previewPost);

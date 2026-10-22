@@ -19,6 +19,7 @@ jest.mock('../lib/blockchain', () => {
     ...actual,
     getOwnedTokenIds: jest.fn(async () => []),
     verifyOwnership: jest.fn(async () => false),
+    mintChogTo: jest.fn(async () => ({ tokenId: 99, txHash: '0xmock', traits: {} })),
     getTokenMetadata: jest.fn(async (tokenId) => ({
       traits: { Eyes: 'XD', Mouth: 'Rainbow Puke', Head: 'BTC Cap', Tier: 'Uncommon', Skin: 'Pink', Background: 'Purple' },
       image: `https://example.com/chog/${tokenId}.png`,
@@ -68,6 +69,7 @@ beforeEach(async () => {
   // Default mock: empty ownership; individual tests override
   blockchain.getOwnedTokenIds.mockResolvedValue([]);
   blockchain.verifyOwnership.mockResolvedValue(false);
+  blockchain.mintChogTo.mockResolvedValue({ tokenId: 99, txHash: '0xmock', traits: {} });
 });
 
 afterAll(async () => {

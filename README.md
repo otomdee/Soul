@@ -10,7 +10,7 @@ npm install
 npm run migrate
 npm run seed           # optional demo data (3 souls + 8 posts)
 npm start              # http://localhost:3000
-npm test               # jest suite (18 tests)
+npm test               # jest suite (22 tests)
 ```
 
 ## API
@@ -21,6 +21,7 @@ npm test               # jest suite (18 tests)
 | `GET`   | `/api/auth/nonce`             | –        | nonce for wallet signature                                                                                                                                                                                                                 |
 | `POST`  | `/api/auth/verify`            | –        | `{address, signature, nonce}` → JWT + owned token IDs                                                                                                                                                                                      |
 | `GET`   | `/api/auth/me`                | ✅       | current user + owned token IDs                                                                                                                                                                                                             |
+| `POST`  | `/api/chog/claim`             | ✅       | sponsor a free testnet Chog mint to the authenticated wallet (deployer pays gas; one per wallet)                                                                                                                                           |
 | `POST`  | `/api/souls`                  | ✅       | activate a Soul (`{tokenId}`); name defaults to `Chog #id`                                                                                                                                                                                 |
 | `GET`   | `/api/souls/:tokenId`         | –        | Soul profile + post count                                                                                                                                                                                                                  |
 | `PATCH` | `/api/souls/:tokenId`         | ✅ owner | `steer` (≤280), `display_name` (≤120)                                                                                                                                                                                                      |
@@ -40,7 +41,9 @@ Posting to X uses X's Web Intent (`https://x.com/intent/tweet?text=...`), so no 
 
 - `JWT_SECRET`, `AI_API_KEY`, `AI_PROVIDER` (`gemini`|`muse`), `AI_MODEL`
 - `MONAD_RPC_URL`, `CHOG_CONTRACT_ADDRESS` (default: Monad testnet MockChog)
-- `TEST_WALLET_PK` — deployer wallet for testnet scripts only, never commit
+- `TEST_WALLET_PK` — testnet deployer/contract-owner wallet. Used by the deploy
+  scripts and by the sponsored `/api/chog/claim` mint (it pays gas so testers do
+  not need testnet MON). Never commit it.
 - `DATABASE_URL` (postgres, e.g. Vercel) or `DB_PATH` (sqlite, local dev)
 - `SOUL_TOKEN_START_BALANCE=10`, `SOUL_TOKEN_POST_COST=1`
 

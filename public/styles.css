@@ -446,6 +446,10 @@ main,
   font-size: 0.85rem;
 }
 
+.claim-btn {
+  margin-top: 16px;
+}
+
 .hero-art {
   position: relative;
   z-index: 1;
@@ -991,6 +995,10 @@ textarea:focus {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.soul-empty .btn {
+  margin-top: 18px;
 }
 
 .more-btn {
